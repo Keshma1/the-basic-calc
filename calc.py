@@ -1,3 +1,9 @@
+"""
+Basic Calc (With Extra Sass v1.0)
+Author: Keshma1 (Keshma Rampersad)
+Description: A CLI calculator that processes user input (with some sassy comments)
+                and logs calculation history to a local file.
+"""
 import os
 import time
 import random 
@@ -16,7 +22,7 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def sassy_loading():
-
+    
     loading_messages = [
         "Hmmmm, let's see...",
         "Analyzing your questionable choices...",
@@ -29,13 +35,15 @@ def sassy_loading():
         "Crunching numbers, unlike your fruit consumption...",
         "Wait for it... drama takes time..."
     ]
-    
+    # Displays a randomized loading message with a visual progress bar
     current_msg = random.choice(loading_messages)
     print(f"{CYAN}[ {current_msg} ]{RESET}")
     for i in range(10):
         time.sleep(0.075)
         print("■", end="", flush=True)
     print("\n")
+
+# Dictionaries mapping operators to randomized "roast" responses
 
 roast_map = {
     "+": [
@@ -130,17 +138,20 @@ print(f"""{GREEN}
           (With Extra Sass v1.0)
 {RESET}""")
 
+# Main application loop
 while True:
 
     print(f"\n{ORANGE} ~~~~~~ New Calculation ~~~~~~ {RESET}")
     print(f"[ Commands: '{PINK}q{RESET}' to quit, '{PINK}h{RESET}' for history, '{PINK}midterm{RESET}' for a reality check ]")
     user_choice = input("Enter first number or command: ").lower()
 
+    # --- System Command Handling ---
     if user_choice == 'q':
         print(f"{RED}{random.choice(goodbye_messages)}{RESET}\n")
         break
 
     if user_choice == 'h':
+        # Displays and manages the 'shame_log' file
         print(f"{CYAN}\n--- YOUR ENTIRE SHAMEFUL HISTORY ---{RESET}")
         try:
             with open("shame_log.txt", "r") as f:
@@ -150,7 +161,7 @@ while True:
                 else:
                     for line in content:
                         print(f"> {line.strip()}")
-                    
+                    # Optional history wipe
                     confirm = input(f"\n{PINK}Wipe the shame away? (type 'clear' to delete everything or enter to skip): {RESET}").lower()
                     if confirm == 'clear':
                         open("shame_log.txt", "w").close()
@@ -160,6 +171,7 @@ while True:
         continue
     
     if user_choice == 'midterm':
+        # Prediction feature based on stress intensity level
         try:
             stress_input = input("On a scale of 1-10, how stressed are you? ")
             stress = int(stress_input)
@@ -178,10 +190,13 @@ while True:
             print(f"{RED}That's not a number. Your stress is literally off the charts.{RESET}")
         continue
 
+    # --- Math Calculation Handling ---
     try:
+        # Validate that the first input is a number
         num1 = float(user_choice)
         op = input("Operator (+, -, *, /, %, or secret): ").lower()
 
+        # Secret Easter Egg Commands
         if op == "goose":
             sassy_loading()
             print(f"{YELLOW}HONK! 🦢{RESET}")
@@ -196,6 +211,7 @@ while True:
             print(f"{YELLOW}Current Status: Trying to survive 1B and land a spring co-op...{RESET}")
             continue
 
+        # Standard operator validation
         valid_ops = ["+", "-", "*", "/", "%"]
         if op not in valid_ops:
             print(f"{RED}\nThat's not even an operator, my friend. Try again.{RESET}")
@@ -204,7 +220,8 @@ while True:
         num2 = float(input("Second number: "))
         sassy_loading()
 
-        if op == "/":
+        # Perform calculation and handle division by zero error
+        if op == "/": 
             if num2 == 0:
                 print(f"{RED}RESULT: ERROR{RESET}")
                 print(f"{RED}{random.choice(div_zero_roasts)}{RESET}")
@@ -216,11 +233,13 @@ while True:
         elif op == "*": result = num1 * num2
         elif op == "%": result = num1 % num2
 
+        # Display final result with left-alignment formatting for UI consistency
         print(f"{GREEN}╔═══════════════════════════════════╗")
         print(f"║  RESULT: {result:<24} ║")
         print(f"╚═══════════════════════════════════╝{RESET}")
         print(f"{YELLOW}{random.choice(roast_map[op])}{RESET}")
 
+        # Update local history and append to the 'shame_log.txt' file
         history.append(f"{num1} {op} {num2} = {result}")
         with open("shame_log.txt", "a") as f:
             f.write(f"{num1} {op} {num2} = {result}\n")
