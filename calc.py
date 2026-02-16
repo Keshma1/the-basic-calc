@@ -1,6 +1,6 @@
 """
 Basic Calc (With Extra Sass v1.0)
-Author: Keshma1 (Keshma Rampersad)
+Author: Keshma Rampersad
 Description: A CLI calculator that processes user input (with some sassy comments)
                 and logs calculation history to a local file.
 """
