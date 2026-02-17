@@ -114,7 +114,7 @@ div_zero_roasts = [
 
 stress_responses = {
     "low": ["Must be nice. Go do some LeetCode.", "Clearly you haven't seen the CS 136 final yet.", "Enjoy the peace while it lasts."],
-    "mid": ["Typical Waterloo student vibe.", "You're in the 'Danger Zone'. Drink some coffee, NOT Monster.", "Balanced, as all things should be... for now."],
+    "mid": ["Typical Waterloo student vibe.", "You're in the 'Danger Zone'. Drink some coffee.", "Balanced, as all things should be... for now."],
     "high": ["Go touch some grass at Waterloo Park.", "The geese can smell your fear.", "Don't worry, the curve is a myth anyway."]
 }
 
@@ -166,6 +166,8 @@ while True:
                     if confirm == 'clear':
                         open("shame_log.txt", "w").close()
                         print(f"{GREEN}History purged. You're a clean slate now.{RESET}")
+                    else:
+                        print(f"{CYAN}History preserved. Your shame remains.{RESET}")
         except FileNotFoundError:
             print("No history file found yet.")
         continue
@@ -181,11 +183,11 @@ while True:
             elif stress > 10:
                 print(f"{RED}ERROR: STRESS OVERLOAD. Please locate the nearest goose and apologize to it immediately.{RESET}")
             elif stress <= 3:
-                print(f"{GREEN}{random.choice(stress_responses['low'])}{RESET}")
+                print(f"{GREEN}Prediction: {random.choice(stress_responses['low'])}{RESET}")
             elif stress <= 7:
-                print(f"{YELLOW}{random.choice(stress_responses['mid'])}{RESET}")
+                print(f"{YELLOW}Prediction: {random.choice(stress_responses['mid'])}{RESET}")
             else:
-                print(f"{RED}{random.choice(stress_responses['high'])}{RESET}")
+                print(f"{RED}Prediction: {random.choice(stress_responses['high'])}{RESET}")
         except ValueError:
             print(f"{RED}That's not a number. Your stress is literally off the charts.{RESET}")
         continue
@@ -226,6 +228,8 @@ while True:
                 print(f"{RED}RESULT: ERROR{RESET}")
                 print(f"{RED}{random.choice(div_zero_roasts)}{RESET}")
                 history.append(f"{num1} / {num2} = ERROR (Universe intact)")
+                with open("shame_log.txt", "a") as f:
+                    f.write(f"{num1} / {num2} = ERROR (Universe intact)\n")
                 continue
             result = num1 / num2
         elif op == "+": result = num1 + num2
