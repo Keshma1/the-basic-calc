@@ -11,5 +11,6 @@ A persistent, interactive CLI calculator built in Python. This was my first proj
 ## 🛠️ Technical Skills Demonstrated
 - Python File I/O: Implementing both reading (`r`) and appending (`a`) modes for data management.
 - Logic & Branching: Using complex `if/elif/else` structures and randomized dictionaries.
+- State Management: Features a session-based history list and a "History Purge" command to manage local data.
 - Error Handling: Robust `try/except` blocks to manage input validation and edge cases.
 - Version Control: Managing a professional GitHub workflow with `.gitignore` for data privacy.
